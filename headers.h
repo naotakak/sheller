@@ -8,11 +8,14 @@
 #include <string.h>
 
 int main();
-int run_cmd(char *);
+void run_cmd(char *);
 char ** space_sep(char *);
 int runner(char **);
 
 /***
     Still need to parse args from stdin, pipes, redirection.
-    run.c is shaky, not sure if it works.
+    Implement cd and exit.
+    Commands not separating on ;.
+    Program exiting after one command is executed.
+    Not splitting on spaces.
 ***/

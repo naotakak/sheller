@@ -1,14 +1,15 @@
 #include "headers.h"
 
-int run_cmd(char * args) {
+void run_cmd(char * args) {
   /***
       Make commands separated by ';' into different strings and then run them
   ***/
   int i = 0;
   char * commands = calloc(5, sizeof(char *));
   commands = strsep(&args, ";");
+  printf("COMMANDS: %s\n", commands);
   while (commands[i]) {
-    space_sep(commands[i]);
+    printf("SPACE SEP %s\n", *space_sep(&commands[i]));
     i ++;
   }
 }
@@ -26,6 +27,7 @@ char ** space_sep(char * line) {
     ret[i] = strsep(&line, " ");
     i ++;
   }
+  runner(ret);
   return ret;
 }
 
@@ -34,6 +36,7 @@ int runner(char ** args) {
       Run specified command using execvp
   ***/
   if (execvp(args[0], args) < 0) {
-    printf("%s\n", sterror(errno));
+    printf("%s\n", strerror(errno));
   }
+  //exit(0);
 }

@@ -5,9 +5,11 @@ int main() {
 
   if (f == 0) {
     //child
-
-    //argv needs to read form stdin
+    char * argv;
+    scanf("%s", argv);
+    //argv needs to read from stdin
     run_cmd(argv);
+    //exit(0);
   }
   else {
     //parent
