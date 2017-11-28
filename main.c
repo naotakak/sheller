@@ -13,13 +13,15 @@ int main() {
   }
   else {
     //parent
-    int w = 10;
-    //wait(&w);
+    int w;
+    wait(&w);
+    /***
     if (WEXITSTATUS(w)) {
       printf("WEXITSTATUS: %d\n", WEXITSTATUS(w));
       //exit(0);
       wait(&w);
     }
+    ***/
   }
   return 0;
 }

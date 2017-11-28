@@ -9,8 +9,8 @@
 
 int main();
 void run_cmd(char *);
-void space_sep(char *);
-int runner(char **, int);
+char ** space_sep(char *);
+int runner(char **);
 
 /***
     Still need pipes, redirection.

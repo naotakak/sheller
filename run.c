@@ -7,17 +7,15 @@ void run_cmd(char * args) {
   //int i = 0;
   char * commands = calloc(5, sizeof(char *));
   //commands = strsep(&args, ";");
-  //printf("COMMANDS: %s\n", commands);
-  while ((commands = strsep(&args, ";")) != 0) {
+  while (!commands) {
     //printf("SPACE SEP %s\n", *space_sep(commands));
+    commands = strsep(&args, " ; ");
     printf("COMMAND: %s\n", commands);
-    space_sep(commands);
-    //i ++;
+    runner(space_sep(commands));
   }
-
 }
 
-void space_sep(char * line) {
+char ** space_sep(char * line) {
   /***
       Separate a string into different args for execvp
   ***/
@@ -32,24 +30,15 @@ void space_sep(char * line) {
     ret[i] = thing;
     i ++;
   }
-  runner(ret, i);
-  //return ret;
+  printf("RET: %p\n", ret);
+  return ret;
 }
 
-int runner(char ** args, int cmds) {
+int runner(char ** args) {
   /***
       Run specified command using execvp
   ***/
   if (execvp(args[0], args) < 0) {
     printf("%s\n", strerror(errno));
   }
-
-  // if more than 1 command, exit with 1 and tell main there's more commands to run
-  if (cmds) {
-    exit(1);
-  }
-  else {
-    exit(0);
-  }
-  //exit(0);
 }

@@ -1,5 +1,4 @@
 all:
-  gcc main.c parse.c fork.c
-
+	gcc main.c run.c
 run: all
-     ./a.out
+	./a.out
