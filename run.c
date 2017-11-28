@@ -6,13 +6,22 @@ void run_cmd(char * args) {
   ***/
   //int i = 0;
   char * commands = calloc(5, sizeof(char *));
-  //commands = strsep(&args, ";");
+  commands = strsep(&args, ";");
+  printf("comm2: %s\n", commands);
+  if (!commands) {
+    commands = args;
+    printf("comm: %s\n", commands);
+    runner(space_sep(commands));
+  }
+  runner(space_sep(commands));
+  /***
   while (!commands) {
     //printf("SPACE SEP %s\n", *space_sep(commands));
     commands = strsep(&args, " ; ");
     printf("COMMAND: %s\n", commands);
     runner(space_sep(commands));
   }
+  ***/
 }
 
 char ** space_sep(char * line) {
