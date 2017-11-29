@@ -5,23 +5,13 @@ void run_cmd(char * args) {
       Make commands separated by ';' into different strings and then run them
   ***/
   //int i = 0;
-  char * commands = calloc(5, sizeof(char *));
+  char * commands = calloc(10, sizeof(char *));
   commands = strsep(&args, ";");
   printf("comm2: %s\n", commands);
-  if (!commands) {
-    commands = args;
-    printf("comm: %s\n", commands);
+  while (commands) {
     runner(space_sep(commands));
+    commands = strsep(&args, ";");
   }
-  runner(space_sep(commands));
-  /***
-  while (!commands) {
-    //printf("SPACE SEP %s\n", *space_sep(commands));
-    commands = strsep(&args, " ; ");
-    printf("COMMAND: %s\n", commands);
-    runner(space_sep(commands));
-  }
-  ***/
 }
 
 char ** space_sep(char * line) {
@@ -34,10 +24,12 @@ char ** space_sep(char * line) {
   }
   char * thing;
   int i = 0;
-  while ((thing = strsep(&line, " ")) != 0) {
+  thing = strsep(&line, " ");
+  while (thing) {
     printf("THING: %s\n", thing);
     ret[i] = thing;
     i ++;
+    thing = strsep(&line, " ");
   }
   printf("RET: %p\n", ret);
   return ret;
