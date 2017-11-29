@@ -5,11 +5,10 @@ int main() {
 
   if (f == 0) {
     //child
-    char * argv;
+    char argv[100];
     scanf("%s", argv);
-    //argv needs to read from stdin
+    printf("argv: %s\n", argv);
     run_cmd(argv);
-    //exit(0);
   }
   else {
     //parent
