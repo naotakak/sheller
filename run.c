@@ -24,10 +24,8 @@ char ** space_sep(char * line) {
     printf("%s\n", strerror(errno));
   }
   char * thing = line;
-  while((ret[i] = strsep(&thing, " "))) {
-    //printf("ret[%d]: %s\n", i, ret[i]);
+  while((ret[i] = strsep(&line, " "))) {
     i ++;
-    thing = strsep(&line, " ");
   }
 
   /***
