@@ -8,9 +8,10 @@
 #include <string.h>
 
 int main();
-void run_cmd(char *);
+char ** run_cmd(char *);
 char ** space_sep(char *);
 int runner(char **);
+int cd(char **);
 
 /***
     Still need pipes, redirection.

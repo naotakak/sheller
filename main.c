@@ -1,27 +1,14 @@
 #include "headers.h"
 
 int main() {
-  int f = fork();
-
-  if (f == 0) {
-    //child
-    char * argv;
-    scanf("%s", argv);
-    //argv needs to read from stdin
-    run_cmd(argv);
-    //exit(0);
-  }
-  else {
-    //parent
-    int w;
-    wait(&w);
-    /***
-    if (WEXITSTATUS(w)) {
-      printf("WEXITSTATUS: %d\n", WEXITSTATUS(w));
-      //exit(0);
-      wait(&w);
-    }
-    ***/
+  char * args = malloc(20);
+  while (1) {
+    //scanf("%s", args);
+    args = fgets(args, 20, stdin);
+    strtok(args, "\n");
+    //printf("argS %s\n", args);
+    //char ** semi = run_cmd(args);
+    runner(space_sep(args));
   }
   return 0;
 }

@@ -1,45 +1,42 @@
 #include "headers.h"
 
-void run_cmd(char * args) {
+char ** run_cmd(char * args) {
   /***
       Make commands separated by ';' into different strings and then run them
   ***/
-  //int i = 0;
-  char * commands = calloc(5, sizeof(char *));
-  commands = strsep(&args, ";");
-  printf("comm2: %s\n", commands);
-  if (!commands) {
-    commands = args;
-    printf("comm: %s\n", commands);
-    runner(space_sep(commands));
+  int i = 0;
+  int a = 0;
+  char ** commands = calloc(5, sizeof(char *));
+  char * thing = args;
+  while((commands[i] = strsep(&thing, " ; "))) {
+    i ++;
   }
-  runner(space_sep(commands));
-  /***
-  while (!commands) {
-    //printf("SPACE SEP %s\n", *space_sep(commands));
-    commands = strsep(&args, " ; ");
-    printf("COMMAND: %s\n", commands);
-    runner(space_sep(commands));
-  }
-  ***/
+  return commands;
 }
 
 char ** space_sep(char * line) {
   /***
       Separate a string into different args for execvp
   ***/
+  int i = 0;
   char ** ret = (char **)calloc(6, sizeof(char*));
   if (!ret) {
     printf("%s\n", strerror(errno));
   }
-  char * thing;
-  int i = 0;
-  while ((thing = strsep(&line, " ")) != 0) {
-    printf("THING: %s\n", thing);
-    ret[i] = thing;
+  char * thing = line;
+  while((ret[i] = strsep(&thing, " "))) {
+    //printf("ret[%d]: %s\n", i, ret[i]);
     i ++;
   }
-  printf("RET: %p\n", ret);
+
+  /***
+  printf("space");
+  for (int a = 0; a < sizeof(ret); a ++) {
+    printf("%s, ", ret[i]);
+  }
+  printf("\n");
+  ***/
+
   return ret;
 }
 
@@ -47,7 +44,26 @@ int runner(char ** args) {
   /***
       Run specified command using execvp
   ***/
-  if (execvp(args[0], args) < 0) {
-    printf("%s\n", strerror(errno));
+  int f = fork();
+  if (!strcmp(args[0], "cd")) {
+    cd(args);
   }
+  if (!strcmp(args[0], "exit")) {
+    exit(0);
+  }
+  if (!f) {
+    execvp(args[0], args);
+    exit(0);
+  }
+  else {
+    int w;
+    wait(&w);
+  }
+}
+
+int cd (char ** args) {
+  if (!chdir(args[1])) {
+    return 1;
+  }
+  return 0;
 }
