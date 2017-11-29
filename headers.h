@@ -14,9 +14,14 @@ int runner(char **);
 int cd(char **);
 
 /***
-    Still need pipes, redirection.
-    Implement cd and exit.
-    Commands not separating on ;. - I think this is fixed
-    Program exiting after one command is executed.
-    Not splitting on spaces.
+    COMPLETED:
+    - Separating on spaces
+    - Printing working directory
+    - separating command arguments
+    - exit and cd
+
+    BROKEN:
+    - Something is wrong in main after line 7 in the while loop. There's a seg fault which I think involves fgets for some reason.
+    - Separating on ; probably still broken
+    - Pipes and redirection need to be implemented
 ***/
