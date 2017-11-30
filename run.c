@@ -1,14 +1,12 @@
 #include "headers.h"
 
-char ** run_cmd(char * args) {
+char ** colonoscopy(char * args) {
   /***
       Make commands separated by ';' into different strings and then run them
   ***/
   int i = 0;
-  int a = 0;
   char ** commands = calloc(5, sizeof(char *));
-  char * thing = args;
-  while((commands[i] = strsep(&thing, " ; "))) {
+  while((commands[i] = strsep(&args, ";"))) {
     i ++;
   }
   return commands;
@@ -23,19 +21,9 @@ char ** space_sep(char * line) {
   if (!ret) {
     printf("%s\n", strerror(errno));
   }
-  char * thing = line;
   while((ret[i] = strsep(&line, " "))) {
     i ++;
   }
-
-  /***
-  printf("space");
-  for (int a = 0; a < sizeof(ret); a ++) {
-    printf("%s, ", ret[i]);
-  }
-  printf("\n");
-  ***/
-
   return ret;
 }
 
@@ -52,6 +40,12 @@ int runner(char ** args) {
   }
   if (!f) {
     execvp(args[0], args);
+    if (!strcmp(args[0], "\n")) {
+      exit(0);
+    }
+    else {
+      printf("%s\n", args[0]);
+    }
     exit(0);
   }
   else {

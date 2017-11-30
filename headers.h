@@ -6,12 +6,17 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/wait.h>
 
 int main();
-char ** run_cmd(char *);
+
+//run.c
+char ** colonoscopy(char *);
 char ** space_sep(char *);
 int runner(char **);
 int cd(char **);
+
+//piping and redirection
 
 /***
     COMPLETED:
@@ -19,9 +24,8 @@ int cd(char **);
     - Printing working directory
     - separating command arguments
     - exit and cd
+    - running multiple commands separated by ; NOTE: commands need to be formatted like ls;echo h (without spaces between commands, should be fixed)
 
     BROKEN:
-    - Something is wrong in main after line 7 in the while loop. There's a seg fault which I think involves fgets for some reason.
-    - Separating on ; probably still broken
     - Pipes and redirection need to be implemented
 ***/
