@@ -14,7 +14,6 @@ int main();
 char ** colonoscopy(char *);
 char ** space_sep(char *);
 int runner(char **);
-int cd(char **);
 
 //piping and redirection
 
