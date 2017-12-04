@@ -22,7 +22,7 @@
         <li>When redirecting using >, the input will be redirected, but will also print to stdout (ex: <code>ls>test</code> will put the output of <code>ls</code> into <code>test</code>, but will also run ls and have the output print to the terminal.</li>
         <li>When redirecting using <, the command will be run using the input from the argument after <, but won't exit the process.</li>
     <li><b>Pipes</b> Unlike the other parsing functions, you MUST separate the arguments for a piped command with spaces. <code>
-        ls | wc</code> NOT <code>ls|wc</code></li>
+        ls | wc</code> NOT <code>ls|wc</code> Running a command with a pipe will work, but will exit the shell.</li>
     </ul>
 <h3>Function Headers</h3>
 
