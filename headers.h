@@ -11,20 +11,12 @@
 int main();
 
 //run.c
-char ** colonoscopy(char *);
-char ** space_sep(char *);
+void tell_run(char *);
 int runner(char **);
 
-//piping and redirection
-
-/***
-    COMPLETED:
-    - Separating on spaces
-    - Printing working directory
-    - separating command arguments
-    - exit and cd
-    - running multiple commands separated by ; NOTE: commands need to be formatted like ls;echo h (without spaces between commands, should be fixed)
-
-    BROKEN:
-    - Pipes and redirection need to be implemented
-***/
+//parse.c
+char ** colonoscopy(char *);
+char ** space_sep(char *);
+void piper(char *);
+void redirectG(char *);
+void redirectL(char *);

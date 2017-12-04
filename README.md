@@ -22,11 +22,13 @@ P01: Shell-ing out commands
 int main();
 
 //run.c
-char ** colonoscopy(char *);
-char ** space_sep(char *);
+void tell_run(cahr *);
 int runner(char **);
 
-//piping and redirection
+//parse.c
+char ** colonoscopy(char *);
+char ** space_sep(char *);
 void piper(char *);
-void redirect(char *);
+void redirectG(char *);
+void redirectL(char *);
 ```
