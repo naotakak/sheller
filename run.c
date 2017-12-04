@@ -1,24 +1,28 @@
 #include "headers.h"
 
 void redirect(char* command){
-  char** commands = space_sep(command)
-  int in, out;
-  in = open("stdin.txt", O_RDONLY);
-  out = open("stdout.txt", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-  dup2(in, 0);
-  dup2(out, 1);
-  close(in);
-  close(out);
-  execvp(commands[0],commands);
+  int i = 0;
+  char ** commands = calloc(10, sizeof(char *));
+  while((commands[i] = strsep(&command, ">"))) {
+    printf("commands[%d]: %s\n", i, commands[i]);
+    i ++;
+  }
+  int f = open(commands[1], O_CREAT | O_WRONLY, 0644);
+  int fout = dup(1);
+  dup2(f, 1);
+  runner(space_sep(commands[0]));
+  dup2(fout, 1);
+  free(commands);
 }
 
 void pipe(char* command){
   char ** commands = calloc(10, sizeof(char *));
-  while((commands[i] = strsep(&args, "|"))) {
+  while((commands[i] = strsep(&command, "|"))) {
     i ++;
   }
-  char *first[] = space_sep(commands[0]);
-  char *second[] = space_sep(commands[1]);
+  
+  char **first[] = space_sep(commands[0]);
+  char **second[] = space_sep(commands[1]);
 
   int inputforpipe[2]
   int pid;
