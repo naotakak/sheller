@@ -23,40 +23,52 @@ void redirectL(char* command){
     i ++;
   }
   int f = open(commands[1], O_RDONLY);
-  int fout = dup(0);
-  dup2(f, 10);
+  int fin = dup(0);
+  dup2(f, 0);
   runner(space_sep(commands[0]));
-  dup2(fout, 0);
+  dup2(fin, 0);
   free(commands);
 }
 
+// char *left = malloc(32);
+// char *right = malloc (32);
+// strcpy(left, strtok(line, "|"));
+// strcpy(right, strtok(line, "|"));
+//
+// int piper[2];
+// pipe(piper);
+// 
+// if (fork() == 0) {
+//   close(piper[0]);
+//   dup2(piper[0], 1);
+//   runner(space_sep(command));
+// } else {
+//   close(piper[1]);
+//   dup2(piper[1], 0);
+//   runner(space_sep(command));
+//   }
+
+
 void piper(char* command){
-  char ** commands = calloc(10, sizeof(char *));
-  int i =0;
-  while((commands[i] = strsep(&command, "|"))) {
-    printf("commands[%d]: %s\n", i, commands[i]);
-    i ++;
-  }
+  char **args = space_sep(command);
+  int i, l;
+  for (i = 0; args[i]; i++) {
+    if (args[i][0] == '|') {
 
-  char **first = space_sep(commands[0]);
-  char **second = space_sep(commands[1]);
+      char first[256] = "";
+      for(l = 0; l < i; l++){
+        strcat(first, args[l]);
+        strcat(first, " ");
+        printf("%s", first);
+      }
 
-  int inputforpipe[2];
-  int pid;
-
-  pipe(inputforpipe);
-  pid = fork();
-
-  if (pid == 0){ //child does second command
-    dup2(inputforpipe[0], 0);
-    //closes the other half
-    close(inputforpipe[1]);
-    execvp(first[0],first);
-  }
-  else{
-    dup2(inputforpipe[1], 1);
-    close(inputforpipe[0]);
-    execvp(second[0],second);
+      FILE *fp = popen(first, "r");
+      int f = fileno(fp);
+      dup2(f, 0);
+      close(f);
+      args += i + 1;
+      execvp(args[0], args);
+    }
   }
 
 }
