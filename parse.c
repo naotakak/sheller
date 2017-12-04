@@ -32,10 +32,12 @@ void redirectL(char* command){
 
 void piper(char* command){
   char ** commands = calloc(10, sizeof(char *));
-  int i = 0;
+  int i =0;
   while((commands[i] = strsep(&command, "|"))) {
+    printf("commands[%d]: %s\n", i, commands[i]);
     i ++;
   }
+
   char **first = space_sep(commands[0]);
   char **second = space_sep(commands[1]);
 
@@ -56,6 +58,7 @@ void piper(char* command){
     close(inputforpipe[0]);
     execvp(second[0],second);
   }
+
 }
 
 char ** colonoscopy(char * args) {
